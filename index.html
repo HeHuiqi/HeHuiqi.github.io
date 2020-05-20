@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />
+    <meta charset="UTF-8" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;"
+        name="viewport" />
 
     <title>收益计算</title>
     <style>
-        #calculator{
+        #calculator {
             align-items: center;
             margin-left: 2%;
             width: 96%;
@@ -13,16 +15,18 @@
             overflow: hidden;
             background-color: bisque;
         }
-        p{
+
+        p {
             margin-left: 15px;
         }
     </style>
 </head>
+
 <body>
     <div id="calculator">
-        <p>卖出总额：<input id="sell" placeholder="输入金额(USDT)"></p>
-        <p>买入总额：<input id="buy" placeholder="输入金额(USDT)"></p>
-        <p><input type="button" value="计算" onclick="myShouyi()"/></p>
+        <p>卖出总额：<input id="sell" placeholder="输入金额(USDT)" type="number" onchange="myShouyi()"></p>
+        <p>买入总额：<input id="buy" placeholder="输入金额(USDT)" type="number" onchange="myShouyi()"></p>
+        <p><input type="button" value="计算" onclick="myShouyi()" /></p>
         <p id="fee">手续费(USDT)：</p>
         <p id="fee_cny">≈(CNY)：</p>
         <p id="shouyi">净收益(USDT)：</p>
@@ -32,24 +36,29 @@
     </div>
 
 
-<script>
-    function myShouyi(){
-        var sellTotalPrice = document.getElementById('sell').value;
-        var buyTotalPrice = document.getElementById('buy').value;
-        var feeTag = document.getElementById('fee');
-        var shouyiTag =  document.getElementById('shouyi');
-        var fee_cnyTag = document.getElementById('fee_cny');
-        var shouyi_cnyTag =  document.getElementById('shouyi_cny');
-        var maoli =  (parseFloat(sellTotalPrice) - parseFloat(buyTotalPrice));
-        var totalPrice =  (parseFloat(sellTotalPrice)  + parseFloat(buyTotalPrice));
-        var fee = totalPrice * 0.002;
-        console.log('fee=='+totalPrice);
-        var shouyi = maoli - fee;
-        feeTag.innerText = "手续费(USDT)：" + fee;
-        shouyiTag.innerText = "净收益(USDT)：" + shouyi;
-        fee_cnyTag.innerText = "≈(CNY)：" + fee*7;
-        shouyi_cnyTag.innerText = "≈(CNY)：" + shouyi*7;;
-    }
-</script>
+    <script>
+        function myShouyi() {
+            var sellTotalPrice = document.getElementById('sell').value;
+            var buyTotalPrice = document.getElementById('buy').value;
+            if (sellTotalPrice.length > 0 && buyTotalPrice.length > 0) {
+                var feeTag = document.getElementById('fee');
+                var shouyiTag = document.getElementById('shouyi');
+                var fee_cnyTag = document.getElementById('fee_cny');
+                var shouyi_cnyTag = document.getElementById('shouyi_cny');
+                var maoli = (parseFloat(sellTotalPrice) - parseFloat(buyTotalPrice));
+                var totalPrice = (parseFloat(sellTotalPrice) + parseFloat(buyTotalPrice));
+                var fee = totalPrice * 0.002;
+                console.log('fee==' + totalPrice);
+                var shouyi = maoli - fee;
+                feeTag.innerText = "手续费(USDT)：" + fee;
+                shouyiTag.innerText = "净收益(USDT)：" + shouyi;
+                fee_cnyTag.innerText = "≈(CNY)：" + fee * 7;
+                shouyi_cnyTag.innerText = "≈(CNY)：" + shouyi * 7;;
+
+            }
+
+        }
+    </script>
 </body>
+
 </html>
