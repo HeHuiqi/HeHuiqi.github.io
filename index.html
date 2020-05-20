@@ -26,6 +26,8 @@
     <div id="calculator">
         <p>卖出总额：<input id="sell" placeholder="输入金额(USDT)" type="number" onchange="myShouyi()"></p>
         <p>买入总额：<input id="buy" placeholder="输入金额(USDT)" type="number" onchange="myShouyi()"></p>
+        <p>手续费率：<input id="fee_rate" placeholder="输入金额(USDT)" type="number" value="0.002" onchange="myShouyi()"></p>
+
         <p><input type="button" value="计算" onclick="myShouyi()" /></p>
         <p id="fee">手续费(USDT)：</p>
         <p id="fee_cny">≈(CNY)：</p>
@@ -40,15 +42,16 @@
         function myShouyi() {
             var sellTotalPrice = document.getElementById('sell').value;
             var buyTotalPrice = document.getElementById('buy').value;
-            if (sellTotalPrice.length > 0 && buyTotalPrice.length > 0) {
+            var feeRate = document.getElementById('fee_rate').value;
+
+            if (sellTotalPrice.length > 0 && buyTotalPrice.length > 0 && feeRate.length>0) {
                 var feeTag = document.getElementById('fee');
                 var shouyiTag = document.getElementById('shouyi');
                 var fee_cnyTag = document.getElementById('fee_cny');
                 var shouyi_cnyTag = document.getElementById('shouyi_cny');
                 var maoli = (parseFloat(sellTotalPrice) - parseFloat(buyTotalPrice));
                 var totalPrice = (parseFloat(sellTotalPrice) + parseFloat(buyTotalPrice));
-                var fee = totalPrice * 0.002;
-                console.log('fee==' + totalPrice);
+                var fee = totalPrice * parseFloat(feeRate);
                 var shouyi = maoli - fee;
                 feeTag.innerText = "手续费(USDT)：" + fee;
                 shouyiTag.innerText = "净收益(USDT)：" + shouyi;
