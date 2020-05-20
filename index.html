@@ -24,7 +24,11 @@
         <p>买入总额：<input id="buy" placeholder="输入金额(USDT)"></p>
         <p><input type="button" value="计算" onclick="myShouyi()"/></p>
         <p id="fee">手续费(USDT)：</p>
+        <p id="fee_cny">≈(CNY)：</p>
         <p id="shouyi">净收益(USDT)：</p>
+        <p id="shouyi_cny">≈(CNY)：</p>
+
+
     </div>
 
 
@@ -34,11 +38,17 @@
         var buyTotalPrice = document.getElementById('buy').value;
         var feeTag = document.getElementById('fee');
         var shouyiTag =  document.getElementById('shouyi');
-        var maoli =  (sellTotalPrice - buyTotalPrice);
-        var fee = (sellTotalPrice + buyTotalPrice) * 0.002;
+        var fee_cnyTag = document.getElementById('fee_cny');
+        var shouyi_cnyTag =  document.getElementById('shouyi_cny');
+        var maoli =  (parseFloat(sellTotalPrice) - parseFloat(buyTotalPrice));
+        var totalPrice =  (parseFloat(sellTotalPrice)  + parseFloat(buyTotalPrice));
+        var fee = totalPrice * 0.002;
+        console.log('fee=='+totalPrice);
         var shouyi = maoli - fee;
-        feeTag.innerText = "手续费(USDT)：" + fee + ",(CNY≈)："+fee*7;
-        shouyiTag.innerText = "净收益(USDT)：" + shouyi + ",(CNY≈)："+fee*7;;
+        feeTag.innerText = "手续费(USDT)：" + fee;
+        shouyiTag.innerText = "净收益(USDT)：" + shouyi;
+        fee_cnyTag.innerText = "≈(CNY)：" + fee*7;
+        shouyi_cnyTag.innerText = "≈(CNY)：" + shouyi*7;;
     }
 </script>
 </body>
