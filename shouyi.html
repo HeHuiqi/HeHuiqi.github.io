@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />
+
+    <title>手机计算</title>
+    <style>
+        #calculator{
+            align-items: center;
+            margin-left: 2%;
+            width: 96%;
+            height: 70%;
+            overflow: hidden;
+            background-color: bisque;
+        }
+        p{
+            margin-left: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div id="calculator">
+        <p>卖出总额：<input id="sell" placeholder="输入金额(USDT)"></p>
+        <p>买入总额：<input id="buy" placeholder="输入金额(USDT)"></p>
+        <p><input type="button" value="计算" onclick="myShouyi()"/></p>
+        <p id="fee">手续费：</p>
+        <p id="shouyi">净收益：</p>
+    </div>
+
+
+<script>
+    function myShouyi(){
+        var sellTotalPrice = document.getElementById('sell').value;
+        var buyTotalPrice = document.getElementById('buy').value;
+        var feeTag = document.getElementById('fee');
+        var shouyiTag =  document.getElementById('shouyi');
+        var maoli =  (sellTotalPrice - buyTotalPrice);
+        var fee = (sellTotalPrice + buyTotalPrice) * 0.002;
+        var shouyi = maoli - fee;
+        feeTag.innerText = "手续费：" + fee;
+        shouyiTag.innerText = "净收益：" + shouyi;
+    }
+</script>
+</body>
+</html>
