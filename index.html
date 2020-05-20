@@ -37,8 +37,8 @@
         var maoli =  (sellTotalPrice - buyTotalPrice);
         var fee = (sellTotalPrice + buyTotalPrice) * 0.002;
         var shouyi = maoli - fee;
-        feeTag.innerText = "手续费(USDT)：" + fee;
-        shouyiTag.innerText = "净收益(USDT)：" + shouyi;
+        feeTag.innerText = "手续费(USDT)：" + fee + ",(CNY≈)："+fee*7;
+        shouyiTag.innerText = "净收益(USDT)：" + shouyi + ",(CNY≈)："+fee*7;;
     }
 </script>
 </body>
