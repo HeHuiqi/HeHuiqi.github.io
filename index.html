@@ -23,8 +23,8 @@
         <p>卖出总额：<input id="sell" placeholder="输入金额(USDT)"></p>
         <p>买入总额：<input id="buy" placeholder="输入金额(USDT)"></p>
         <p><input type="button" value="计算" onclick="myShouyi()"/></p>
-        <p id="fee">手续费：</p>
-        <p id="shouyi">净收益：</p>
+        <p id="fee">手续费(USDT)：</p>
+        <p id="shouyi">净收益(USDT)：</p>
     </div>
 
 
@@ -37,8 +37,8 @@
         var maoli =  (sellTotalPrice - buyTotalPrice);
         var fee = (sellTotalPrice + buyTotalPrice) * 0.002;
         var shouyi = maoli - fee;
-        feeTag.innerText = "手续费：" + fee;
-        shouyiTag.innerText = "净收益：" + shouyi;
+        feeTag.innerText = "手续费(USDT)：" + fee;
+        shouyiTag.innerText = "净收益(USDT)：" + shouyi;
     }
 </script>
 </body>
