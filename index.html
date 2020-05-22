@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;"
-        name="viewport" />
+        name="viewport=0" />
 
     <title>收益计算</title>
     <style>
@@ -24,42 +24,118 @@
 
 <body>
     <div id="calculator">
-        <p>卖出总额：<input id="sell" placeholder="输入金额(USDT)" type="number" onchange="myShouyi()"></p>
-        <p>买入总额：<input id="buy" placeholder="输入金额(USDT)" type="number" onchange="myShouyi()"></p>
-        <p>手续费率：<input id="fee_rate" placeholder="输入金额(USDT)" type="number" value="0.002" onchange="myShouyi()"></p>
+        <p>手续费率：<input id="fee_rate" placeholder="输入费率" type="number" value="0.002" onchange="shouyi()"></p>
 
-        <p><input type="button" value="计算" onclick="myShouyi()" /></p>
-        <p id="fee">手续费(USDT)：</p>
-        <p id="fee_cny">≈(CNY)：</p>
-        <p id="shouyi">净收益(USDT)：</p>
-        <p id="shouyi_cny">≈(CNY)：</p>
+        <p>买入价格：<input id="buy_price" placeholder="输入金额(USDT)" type="number" onchange="buyPriceValueChange()"></p>
+        <p>买入数量：<input id="buy_count" placeholder="输入数量" type="number" onchange="buyCountValueChange()"></p>
+
+        <p>卖出价格：<input id="sell_price" placeholder="输入金额(USDT)" type="number" onchange="shouyi()"></p>
+        <p>卖出数量：<input id="sell_count" placeholder="输入数量" type="number" onchange="shouyi()"></p>
+
+        <p><input type="button" value="计算" onclick="shouyi()" /></p>
+
+        <p id="min_sell_price">保本卖出价(USDT)：0<br>≈(CNY)：0</p>
+        <p id="fee">手续费(USDT)：0<br>≈(CNY)：0</p>
+        <p id="shouyi">净收益(USDT)：0<br>≈(CNY)：0</p>
 
 
     </div>
 
 
     <script>
-        function myShouyi() {
-            var sellTotalPrice = document.getElementById('sell').value;
-            var buyTotalPrice = document.getElementById('buy').value;
-            var feeRate = document.getElementById('fee_rate').value;
 
-            if (sellTotalPrice.length > 0 && buyTotalPrice.length > 0 && feeRate.length>0) {
-                var feeTag = document.getElementById('fee');
-                var shouyiTag = document.getElementById('shouyi');
+
+
+
+
+        function buyPriceValueChange() {
+
+            var fee = document.getElementById('fee_rate');
+            var buyPriceTag = document.getElementById('buy_price');
+            var sellPriceTag = document.getElementById('sell_price');
+
+            var feeRate = parseFloat(fee.value);
+            var realRate = 1 - feeRate;
+            var buyPrice = parseFloat(buyPriceTag.value);
+            if (buyPrice > 0) {
+                sellPriceTag.value = (buyPrice / (realRate * realRate)).toFixed(8);
+            }
+            shouyi();
+
+
+        }
+        function buyCountValueChange() {
+
+            var fee = document.getElementById('fee_rate');
+            var buyCountTag = document.getElementById('buy_count');
+            var sellCountTag = document.getElementById('sell_count');
+
+            var feeRate = parseFloat(fee.value);
+            var realRate = 1 - feeRate;
+            var buyCount = parseFloat(buyCountTag.value);
+
+            if (buyCount > 0) {
+                sellCountTag.value = buyCount * realRate;
+            }
+            shouyi();
+
+
+        }
+        function shouyi() {
+            var fee = document.getElementById('fee_rate');
+
+            var buyPriceTag = document.getElementById('buy_price');
+            var buyCountTag = document.getElementById('buy_count');
+
+            var sellPriceTag = document.getElementById('sell_price');
+            var sellCountTag = document.getElementById('sell_count');
+
+            var feeRate = parseFloat(fee.value);
+            var realRate = 1 - feeRate;
+            var buyPrice = parseFloat(buyPriceTag.value);
+            var buyCount = parseFloat(buyCountTag.value);
+            var buyTotalPrice = buyPrice * buyCount;
+            var minSellPrice = buyPrice / (realRate * realRate);
+
+            var sellPrice = parseFloat(sellPriceTag.value);
+            var sellCount = parseFloat(sellCountTag.value);
+            var sellTotalPrice = sellPrice * sellCount;
+
+
+            if (sellTotalPrice > 0 && buyTotalPrice > 0 && feeRate >= 0) {
+
+                var minSellPriceTag = document.getElementById('min_sell_price');
+                var minSellPriceCNYTag = document.getElementById('min_sell_price_cny');
+
                 var fee_cnyTag = document.getElementById('fee_cny');
+                var feeTag = document.getElementById('fee');
+                var fee_cnyTag = document.getElementById('fee_cny');
+                var shouyiTag = document.getElementById('shouyi');
                 var shouyi_cnyTag = document.getElementById('shouyi_cny');
-                var maoli = (parseFloat(sellTotalPrice) - parseFloat(buyTotalPrice));
-                var totalPrice = (parseFloat(sellTotalPrice) + parseFloat(buyTotalPrice));
-                var fee = totalPrice * parseFloat(feeRate);
-                var shouyi = maoli - fee;
-                feeTag.innerText = "手续费(USDT)：" + fee;
-                shouyiTag.innerText = "净收益(USDT)：" + shouyi;
-                fee_cnyTag.innerText = "≈(CNY)：" + fee * 7;
-                shouyi_cnyTag.innerText = "≈(CNY)：" + shouyi * 7;;
+
+
+                var totalPrice = sellTotalPrice + buyTotalPrice;
+                var fee = totalPrice * feeRate;
+                var shouyi = sellPrice - minSellPrice;
+                var sellFee = sellTotalPrice*feeRate;
+                console.log('sellTotalPrice='+sellTotalPrice);
+                console.log('sellTotalPrice*feeRate='+sellTotalPrice*feeRate);
+                console.log('buyTotalPrice='+buyTotalPrice);
+
+                var sellRealTotalPrice = sellTotalPrice - sellFee;
+                console.log('sellRealTotalPrice='+sellRealTotalPrice);
+                shouyi = (sellRealTotalPrice - buyTotalPrice);
+
+
+                // shouyi = (sellPrice*(1-feeRate) - buyPrice)*sellCount;
+                console.log(shouyi);
+
+                minSellPriceTag.innerText = "保本卖出价(USDT)：" + minSellPrice.toFixed(8) + "\n≈(CNY)："+minSellPrice.toFixed(8) * 7;;
+
+                feeTag.innerText = "手续费(USDT)：" + fee.toFixed(8) + "\n≈(CNY)："+fee.toFixed(8) * 7;
+                shouyiTag.innerText = "净收益(USDT)：" + shouyi.toFixed(8)  + "\n≈(CNY)："+(shouyi * 7).toFixed(8);;
 
             }
-
         }
     </script>
 </body>
