@@ -4,6 +4,7 @@ const articleTitles = [
     'git稀疏检出',
     'git一些操作',
     'thesubgraph_use',
+    'C代码编译过程',
     '矩阵解方程'
 ];
 
