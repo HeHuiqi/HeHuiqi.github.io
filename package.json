@@ -1,0 +1,24 @@
+{
+    "name": "HeHuiqi.github.io",
+    "version": "1.0.0",
+    "description": "",
+    "main": "markdown_it.js",
+    "scripts": {
+        "start": "serve .",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/HeHuiqi/HeHuiqi.github.io.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/HeHuiqi/HeHuiqi.github.io/issues"
+    },
+    "homepage": "https://github.com/HeHuiqi/HeHuiqi.github.io#readme",
+    "dependencies": {
+        "serve": "^14.0.1"
+    }
+}

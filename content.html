@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="icon" href="/favicon.jpg" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="Web site created using create-react-app" />
+    <!-- <link rel="apple-touch-icon" href="/logo192.png" /> -->
+    <!-- <link rel="manifest" href="/manifest.json" /> -->
+    <script src="./lib/markdown_it.js"></script>
+    <script src="./js/http_client.js"></script>
+</head>
+
+<body>
+
+    <div id="content">
+    </div>
+
+    <script>
+        let url = window.location.href;
+        console.log('url:', url);
+        let start = url.indexOf('=') + 1;
+        const title = url.substring(start) + '.md';
+        console.log('title:', title);
+        const ct = document.getElementById('content');
+        const md = new markdownit({
+            html: true,
+            linkify: true,
+            typographer: true
+        });
+
+        function render(url) {
+            get(url, (mdc) => {
+                console.log();
+                const res = md.render(mdc);
+                console.log('res:', res);
+                ct.innerHTML = res;
+            });
+        }
+        const article_url = './article/' + title;
+        console.log(article_url);
+        render(article_url);
+    </script>
+
+</body>
+
+</html>
