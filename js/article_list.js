@@ -1,5 +1,6 @@
 
 const articleTitles = [
+    '基础语法',
     'git稀疏检出',
     'git一些操作',
     'thesubgraph_use',

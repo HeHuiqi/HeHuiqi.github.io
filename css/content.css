@@ -3,12 +3,45 @@
     width: 90%;
 }
 
+table {
+    border-collapse: collapse;
+    margin: 1rem 0;
+    display: block;
+    overflow-x: auto;
+}
+
+thead {
+    display: table-header-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+
+tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+}
+
+th {
+    display: table-cell;
+    vertical-align: inherit;
+    font-weight: bold;
+    text-align: -internal-center;
+}
+
+td,
+th {
+    border: 1px solid #dfe2e5;
+    padding: 0.6em 1em;
+}
+
 pre,
 p code {
     width: 100%;
     font-size: 15px;
-    background-color: aqua;
     overflow: auto;
+    color: rgb(165, 79, 180);
+    background-color: rgba(219, 228, 228, 0.865);
 }
 
 p code {

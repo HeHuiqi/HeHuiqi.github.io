@@ -3,11 +3,11 @@ let url = window.location.href;
 let start = url.indexOf('=') + 1;
 let title = url.substring(start) + '.md';
 if (start == 0) {
-   title = 'index.md'; 
+   title = '基础语法.md'; 
 }
 const ct = document.getElementById('content');
 const mk = markdownitLatex2img;
-const md = new markdownit('commonmark', {
+const md = new markdownit({
     html: true,
     linkify: true,
     typographer: true,
