@@ -34,7 +34,6 @@
 
         function render(url) {
             get(url, (mdc) => {
-                console.log();
                 const res = md.render(mdc);
                 console.log('res:', res);
                 ct.innerHTML = res;

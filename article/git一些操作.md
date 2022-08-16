@@ -1,3 +1,4 @@
+# git的一些操作
 ```
 # 添加分支
 # git branch  new_branch_name
@@ -25,8 +26,8 @@ git tag 0.0.1
 #git push origin  tag [tag_name]
 git push origin tag 0.0.1
 
-#删除tag
-#git tag -d tag_name
+# 删除tag
+git tag -d tag_name
 git push origin --delete tag 0.0.1
 
 ```
