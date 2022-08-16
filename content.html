@@ -10,8 +10,17 @@
     <meta name="description" content="Web site created using create-react-app" />
     <!-- <link rel="apple-touch-icon" href="/logo192.png" /> -->
     <!-- <link rel="manifest" href="/manifest.json" /> -->
+    <!-- markdown 渲染 -->
     <script src="./lib/markdown_it.js"></script>
     <script src="./js/http_client.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
+    <!-- 数学公式 -->
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it-latex2img@latest/dist/markdown-it-latex2img.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it@11.0.0/dist/markdown-it.min.js" crossorigin="anonymous"></script>
+    <!-- 代码高亮 -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="./css/content.css"></link>
 </head>
 
 <body>
@@ -19,31 +28,55 @@
     <div id="content">
     </div>
 
-    <script>
+    <!-- <script>
         let url = window.location.href;
-        console.log('url:', url);
+        // console.log('url:', url);
         let start = url.indexOf('=') + 1;
         const title = url.substring(start) + '.md';
-        console.log('title:', title);
+        // console.log('title:', title);
         const ct = document.getElementById('content');
-        const md = new markdownit({
+        const mk = markdownitLatex2img;
+        const md = new markdownit('commonmark', {
             html: true,
             linkify: true,
-            typographer: true
+            typographer: true,
+            highlight: function(str, lang) {
+                if (lang && hljs.getLanguage(lang)) {
+                    try {
+                        return '<pre class="hljs"><code>' +
+                            hljs.highlight(str, {
+                                language: lang,
+                                ignoreIllegals: true
+                            }).value +
+                            '</code></pre>';
+                    } catch (__) {}
+                }
+
+                return '<pre class="hljs"><code>' + md.utils.escapeHtml(str) + '</code></pre>';
+            }
         });
+        md.use(mk);
 
         function render(url) {
+            console.log('render-url:', url);
             get(url, (mdc) => {
                 const res = md.render(mdc);
-                console.log('res:', res);
+                // console.log('res:', res);
                 ct.innerHTML = res;
             });
         }
-        const article_url = './article/' + title;
+        let article_url = './article/' + title;
+        article_url = './article/git一些操作.md';
+        article_url = './article/git稀疏检出.md';
+        article_url = './article/thesubgraph_use.md';
+        article_url = '././article/矩阵解方程.md';
+        // article_url = '././article/test.md';
+
+
         console.log(article_url);
         render(article_url);
-    </script>
-
+    </script> -->
+    <script src="./js/content.js"></script>
 </body>
 
 </html>

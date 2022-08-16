@@ -1,0 +1,26 @@
+#content {
+    margin-left: 5%;
+    width: 90%;
+}
+
+pre,
+p code {
+    width: 100%;
+    font-size: 15px;
+    background-color: aqua;
+    overflow: auto;
+}
+
+p code {
+    padding: 3px;
+    border-radius: 2px;
+}
+
+p code span {
+    overflow: auto;
+}
+
+pre {
+    padding: 15px;
+    border-radius: 8px;
+}
