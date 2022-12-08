@@ -3,17 +3,17 @@ let start = url.indexOf('=') + 1;
 let title = url.substring(start) + '.md';
 if (start == 0) {
    title = '基础语法.md'; 
+   title = '图表.md'
 }
 mermaid.initialize({startOnLoad:true});
 const mermaidChart = (code_str) => {
-  console.log('gdsgs');
   try {
     return `<div class="mermaid">${code_str}</div>`
   } catch ({ str, hash }) {
     return `<pre>${str}</pre>`
   }
 };
-const ct = document.getElementById('content');
+
 const mk = markdownitLatex2img;
 const md = new markdownit({
     html: true,
@@ -41,20 +41,26 @@ md.use(mk);
 
 mermaid.initialize({startOnLoad:true});
 
-function render(url) {
-    get(url, (mdc) => {
-        const res = md.render(mdc);
-        ct.innerHTML = res;
-    });
+function render() {
+  
+  const ct = document.getElementById('privew');
+  const editor = document.getElementById('editor');
+
+  const mdTxt = editor.innerText;
+  const res = md.render(mdTxt);  
+  // ct.innerText = res;
+  let content = document.createElement('div');
+  content.className = 'mermaid';
+  content.innerHTML = mdTxt;
+  ct.appendChild(content);
+  
 }
-let article_url = './article/' + title;
-// article_url = './article/git一些操作.md';
-// article_url = './article/git稀疏检出.md';
-// article_url = './article/thesubgraph_use.md';
-// article_url = './article/矩阵解方程.md';
-// article_url = './article/C代码编译过程.md';
-console.log('article_url:',article_url);
-render(article_url);
+
+const btn = document.getElementById('privewBtn');
+btn.addEventListener('click',()=>{
+  render();
+});
+
 
 
 

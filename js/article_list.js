@@ -5,7 +5,8 @@ const articleTitles = [
     'git一些操作',
     'thesubgraph_use',
     'C代码编译过程',
-    '矩阵解方程'
+    '矩阵解方程',
+    '游戏程序设计'
 ];
 
 function articleItem(articleName) {
