@@ -30,5 +30,16 @@ git push origin tag 0.0.1
 git tag -d tag_name
 git push origin --delete tag 0.0.1
 
+
+
+ #清除缓存
+git rm -r --cached . 
+#重新trace file
+git add . 
+#提交
+git commit -m "update .gitignore" 
+#可选，如果需要同步到remote上的话
+git push origin master 
+
 ```
 
